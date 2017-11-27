@@ -1,0 +1,95 @@
+Git笔记
+
+Git简介
+
+最先进的分布式版本控制系统；
+由Linus创建（目前最大服务器系统软件Linux的创建者）；
+2008年GitHub上线，为开源项目免费提供Git存储；
+
+
+mac常用命令
+
+ls -la --显示当前目录内容
+pwd --显示当前目录路径
+mkdir <dirname> --创建目录
+cd <dirname> --改变当前目录
+rmdir <dirname> --删除目录
+mvdir dir1 dir2 --移动或重命名目录
+cat <filename> --显示或连接文件
+od -c <filename> --显示非文本文件内容
+file <filename> --显示文件类型
+rm <filename> --删除文件
+cp file1 file2 --复制文件或目录
+mv file1 file2 --改变文件名或所在目录
+
+
+git命令集
+
+$ git init --初始化仓库
+$ ls -ah --显示.git隐藏目录
+$ git add <file> --添加文件，可反复多次使用，添加多个文件
+$ git commit -m "" --提交文件至仓库，""此处输入提交的说明
+$ git status --查看仓库当前状态
+$ git diff <file> --查看文件修改内容
+$ git log -- 查看提交日志
+$ git log --pretty=online --简化日志信息
+ 简化信息中第一部分文本为commit id版本号，后接--abbrev-commit为历史提交commit id信息
+$ git reset --hard HEAD^ --版本回退
+ 上一个版本为HEAD^，上上个版本为HEAD^^，往上20个版本为HEAD~20
+$ git reset --hard <commit id> --版本会退至指定版本，id无需写全，前7位即可
+$ git reflog --调取历史命令记录
+$ git reset HEAD <file> --暂存区文件修改撤销
+$ git checkout -- <file> --必须加文件名以示撤销文件修改，回到最近一次commit/add时的状态
+$ git rm <file> --删除文件
+
+远程库
+$ git remote add origin git@github.com:<username>/<folder>.git --关联远程库
+$ git push -u origin master --将本地库内容推送至远程库origin，-u参数为将本地库master分支关联远程库master分支
+$ git push origin master --本地提交后可通过此命令推送址远程库GitHub
+$ git clone git@github.com:<username>/<folder>.git --克隆本地库
+
+分支管理
+$ git branch --查看所有分支，当前分支前标*
+$ git branch <name> --创建分支
+$ git checkout <name> --切换分支
+$ git checkout -b dev --创建并切换至dev分支
+$ git merge --合并指定分支至当前分支
+$ git branch -d dev --删除dev分支
+$ git log --graph --查看分支合并图
+$ git merge --no-ff -m "" dev --强制禁用fast forward方式合并分支dev，可从分支历史上看出分支信息
+$ git stash --"储藏"当前工作，后续恢复现场继续工作
+$ git stash list --查看"储藏"工作清单
+$ git stash apply --恢复"储藏"工作，保留stash内容
+$ git stash pop --恢复"储藏"工作，删除stash内容
+$ git branch -D <name> --强行删除未合并分支
+$ git remote -v --查看远程库信息，-v参数列出详细信息
+
+master分支是主分支，时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+标签管理
+$ git tag -a <tagname> -m "" <commit id> --切换至目标分支后打标签，-a指定标签名，-m指定说明文字
+$ git tag --查看所有标签
+$ git show <tagname> --查看标签信息
+$ git tag -s <tagname> -m "" <commit id> --使用私钥签名标签
+ 签名采用PGP签名，必须安装GnuPG，用PGP签名的标签是不可伪造的，因为可以验证PGP签名。
+$ git push origin <tagname> --推送本地标签
+$ git push origin --tags --推送全部未推送过的本地标签
+$ git tag -d <tagname> --删除本地标签
+$ git push origin :refs/tags/<tagname> --删除远程标签
+
+
+
+
+
+
+
+
+
+
+
+
+
+
